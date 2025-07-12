@@ -10,14 +10,108 @@
 > [!CAUTION]
 Exercise vigilance regarding copycat or coat-tailing sites that seek to exploit the project's popularity for potentially malicious purposes.
 
+## 2025-07-12
+
+## 2025-07-11
+
+### 🚀 Updated Scripts
+
+  - #### 🐞 Bug Fixes
+
+    - immich: hotfix #5921 [@vhsdream](https://github.com/vhsdream) ([#5938](https://github.com/community-scripts/ProxmoxVE/pull/5938))
+    - bookstack: add setup_composer in update [@MickLesk](https://github.com/MickLesk) ([#5935](https://github.com/community-scripts/ProxmoxVE/pull/5935))
+    - Quickfix: Immich: revert install sequence [@vhsdream](https://github.com/vhsdream) ([#5932](https://github.com/community-scripts/ProxmoxVE/pull/5932))
+
+  - #### ✨ New Features
+
+    - Refactor & Function Bump: Docker [@MickLesk](https://github.com/MickLesk) ([#5889](https://github.com/community-scripts/ProxmoxVE/pull/5889))
+
+  - #### 🔧 Refactor
+
+    - Immich: handle custom library dependency updates; other fixes [@vhsdream](https://github.com/vhsdream) ([#5896](https://github.com/community-scripts/ProxmoxVE/pull/5896))
+
+## 2025-07-10
+
+### 🚀 Updated Scripts
+
+  - Refactor: Habitica [@MickLesk](https://github.com/MickLesk) ([#5911](https://github.com/community-scripts/ProxmoxVE/pull/5911))
+
+  - #### 🐞 Bug Fixes
+
+    - core: fix breaking re-download of lxc containers  [@MickLesk](https://github.com/MickLesk) ([#5906](https://github.com/community-scripts/ProxmoxVE/pull/5906))
+    - PLANKA: Fix paths to application directory [@tremor021](https://github.com/tremor021) ([#5900](https://github.com/community-scripts/ProxmoxVE/pull/5900))
+
+  - #### 🔧 Refactor
+
+    - Refactor: EMQX + Update-Function + Improved NodeJS Crawling [@MickLesk](https://github.com/MickLesk) ([#5907](https://github.com/community-scripts/ProxmoxVE/pull/5907))
+
+## 2025-07-09
+
+### 🚀 Updated Scripts
+
+  - #### 🐞 Bug Fixes
+
+    - Omada Update: add missing exit  [@MickLesk](https://github.com/MickLesk) ([#5894](https://github.com/community-scripts/ProxmoxVE/pull/5894))
+    - FreshRSS: fix needed php modules [@MickLesk](https://github.com/MickLesk) ([#5886](https://github.com/community-scripts/ProxmoxVE/pull/5886))
+    - core: Fix VAAPI passthrough for unprivileged LXC containers via devX  [@MickLesk](https://github.com/MickLesk) ([#5875](https://github.com/community-scripts/ProxmoxVE/pull/5875))
+    - tools.func: fix an bug while php libapache2-mod breaks [@MickLesk](https://github.com/MickLesk) ([#5857](https://github.com/community-scripts/ProxmoxVE/pull/5857))
+    - BabyBuddy: fix path issues for update [@MickLesk](https://github.com/MickLesk) ([#5856](https://github.com/community-scripts/ProxmoxVE/pull/5856))
+
+  - #### ✨ New Features
+
+    - tools.func: strip leading folders for prebuild assets [@MickLesk](https://github.com/MickLesk) ([#5865](https://github.com/community-scripts/ProxmoxVE/pull/5865))
+
+  - #### 💥 Breaking Changes
+
+    - Refactor: Stirling-PDF [@MickLesk](https://github.com/MickLesk) ([#5872](https://github.com/community-scripts/ProxmoxVE/pull/5872))
+
+  - #### 🔧 Refactor
+
+    - Refactor: EMQX [@tremor021](https://github.com/tremor021) ([#5840](https://github.com/community-scripts/ProxmoxVE/pull/5840))
+    - Refactor: Excalidraw [@tremor021](https://github.com/tremor021) ([#5841](https://github.com/community-scripts/ProxmoxVE/pull/5841))
+    - Refactor: Firefly [@tremor021](https://github.com/tremor021) ([#5844](https://github.com/community-scripts/ProxmoxVE/pull/5844))
+    - Refactor: gatus [@tremor021](https://github.com/tremor021) ([#5849](https://github.com/community-scripts/ProxmoxVE/pull/5849))
+    - Refactor: FreshRSS [@tremor021](https://github.com/tremor021) ([#5847](https://github.com/community-scripts/ProxmoxVE/pull/5847))
+    - Refactor: Fluid-Calendar [@tremor021](https://github.com/tremor021) ([#5846](https://github.com/community-scripts/ProxmoxVE/pull/5846))
+    - Refactor: Commafeed [@tremor021](https://github.com/tremor021) ([#5802](https://github.com/community-scripts/ProxmoxVE/pull/5802))
+    - Refactor: FlareSolverr [@tremor021](https://github.com/tremor021) ([#5845](https://github.com/community-scripts/ProxmoxVE/pull/5845))
+    - Refactor: Glance [@tremor021](https://github.com/tremor021) ([#5874](https://github.com/community-scripts/ProxmoxVE/pull/5874))
+    - Refactor: Gitea [@tremor021](https://github.com/tremor021) ([#5876](https://github.com/community-scripts/ProxmoxVE/pull/5876))
+    - Refactor: Ghost (use now MySQL)  [@MickLesk](https://github.com/MickLesk) ([#5871](https://github.com/community-scripts/ProxmoxVE/pull/5871))
+
+### 🧰 Maintenance
+
+  - #### 📂 Github
+
+    - Github: AutoLabler | ChangeLog (Refactor) [@MickLesk](https://github.com/MickLesk) ([#5868](https://github.com/community-scripts/ProxmoxVE/pull/5868))
+
+## 2025-07-08
+
+### 🚀 Updated Scripts
+
+  - Refactor: Emby [@tremor021](https://github.com/tremor021) ([#5839](https://github.com/community-scripts/ProxmoxVE/pull/5839))
+
+  - #### 🐞 Bug Fixes
+
+    - Ollama: fix update script [@lucacome](https://github.com/lucacome) ([#5819](https://github.com/community-scripts/ProxmoxVE/pull/5819))
+
+  - #### ✨ New Features
+
+    - tools.func: add ffmpeg + minor improvement [@MickLesk](https://github.com/MickLesk) ([#5834](https://github.com/community-scripts/ProxmoxVE/pull/5834))
+
+  - #### 🔧 Refactor
+
+    - Refactor: ErsatzTV [@MickLesk](https://github.com/MickLesk) ([#5835](https://github.com/community-scripts/ProxmoxVE/pull/5835))
+
 ## 2025-07-07
 
 ### 🚀 Updated Scripts
 
-  - gitea-mirror: update repo-url [@CrazyWolf13](https://github.com/CrazyWolf13) ([#5794](https://github.com/community-scripts/ProxmoxVE/pull/5794))
-
   - #### 🐞 Bug Fixes
 
+    - Fix/stirling pdf script [@JcMinarro](https://github.com/JcMinarro) ([#5803](https://github.com/community-scripts/ProxmoxVE/pull/5803))
+    - gitea-mirror: update repo-url [@CrazyWolf13](https://github.com/CrazyWolf13) ([#5794](https://github.com/community-scripts/ProxmoxVE/pull/5794))
+    - Fix unbound var in pulse.sh [@michelroegl-brunner](https://github.com/michelroegl-brunner) ([#5807](https://github.com/community-scripts/ProxmoxVE/pull/5807))
     - Bookstack: Fix PHP Issue & Bump to PHP 8.3 [@MickLesk](https://github.com/MickLesk) ([#5779](https://github.com/community-scripts/ProxmoxVE/pull/5779))
 
   - #### ✨ New Features
@@ -28,6 +122,7 @@ Exercise vigilance regarding copycat or coat-tailing sites that seek to exploit 
 
   - #### 🔧 Refactor
 
+    - Refactor: Docmost [@tremor021](https://github.com/tremor021) ([#5806](https://github.com/community-scripts/ProxmoxVE/pull/5806))
     - Refactor: Baby Buddy [@tremor021](https://github.com/tremor021) ([#5769](https://github.com/community-scripts/ProxmoxVE/pull/5769))
     - Refactor: Changed the way we install BunkerWeb by leveraging the brand new install-bunkerweb.sh [@TheophileDiot](https://github.com/TheophileDiot) ([#5707](https://github.com/community-scripts/ProxmoxVE/pull/5707))
 
