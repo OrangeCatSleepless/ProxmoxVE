@@ -12,11 +12,19 @@ Exercise vigilance regarding copycat or coat-tailing sites that seek to exploit 
 
 ## 2025-11-14
 
+### 🆕 New Scripts
+
+  - LibreNMS ([#9148](https://github.com/community-scripts/ProxmoxVE/pull/9148))
+
 ### 🚀 Updated Scripts
 
   - #### 🐞 Bug Fixes
 
     - karakeep: clean install after every update [@MickLesk](https://github.com/MickLesk) ([#9144](https://github.com/community-scripts/ProxmoxVE/pull/9144))
+
+  - #### ✨ New Features
+
+    - bump grafana to debian 13 [@mschabhuettl](https://github.com/mschabhuettl) ([#9141](https://github.com/community-scripts/ProxmoxVE/pull/9141))
 
 ## 2025-11-13
 
