@@ -94,6 +94,27 @@ jobs:
           }
           const token = JSON.parse(authRes.body).token;
           const recordsUrl = apiBase + '/collections/' + encodeURIComponent(coll) + '/records';
+          let categoryIdToName = {};
+          try {
+            const metadata = JSON.parse(fs.readFileSync('frontend/public/json/metadata.json', 'utf8'));
+            (metadata.categories || []).forEach(function(cat) { categoryIdToName[cat.id] = cat.name; });
+          } catch (e) { console.warn('Could not load metadata.json:', e.message); }
+          let typeValueToId = {};
+          let categoryNameToPbId = {};
+          try {
+            const typesRes = await request(apiBase + '/collections/z_ref_script_types/records?perPage=500', { headers: { 'Authorization': token } });
+            if (typesRes.ok) {
+              const typesData = JSON.parse(typesRes.body);
+              (typesData.items || []).forEach(function(item) { if (item.type) typeValueToId[item.type] = item.id; });
+            }
+          } catch (e) { console.warn('Could not fetch z_ref_script_types:', e.message); }
+          try {
+            const catRes = await request(apiBase + '/collections/script_categories/records?perPage=500', { headers: { 'Authorization': token } });
+            if (catRes.ok) {
+              const catData = JSON.parse(catRes.body);
+              (catData.items || []).forEach(function(item) { if (item.name) categoryNameToPbId[item.name] = item.id; });
+            }
+          } catch (e) { console.warn('Could not fetch script_categories:', e.message); }
           for (const file of files) {
             if (!fs.existsSync(file)) continue;
             const data = JSON.parse(fs.readFileSync(file, 'utf8'));
@@ -113,12 +134,12 @@ jobs:
               config_path: data.config_path,
               default_user: (data.default_credentials && data.default_credentials.username) || data.default_user,
               default_passwd: (data.default_credentials && data.default_credentials.password) || data.default_passwd,
-              categories: data.categories,
-              install_methods: data.install_methods,
-              notes: data.notes,
-              type: data.type,
               is_dev: false
             };
+            var resolvedType = typeValueToId[data.type];
+            if (resolvedType) payload.type = resolvedType;
+            var resolvedCats = (data.categories || []).map(function(n) { return categoryNameToPbId[categoryIdToName[n]]; }).filter(Boolean);
+            if (resolvedCats.length) payload.categories = resolvedCats;
             if (data.version !== undefined) payload.version = data.version;
             if (data.changelog !== undefined) payload.changelog = data.changelog;
             if (data.screenshots !== undefined) payload.screenshots = data.screenshots;
