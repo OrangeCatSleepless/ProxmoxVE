@@ -74,7 +74,8 @@ jobs:
               req.end();
             });
           }
-          const base = process.env.POCKETBASE_URL.replace(/\/$/, '') + '/api';
+          const raw = process.env.POCKETBASE_URL.replace(/\/$/, '');
+          const base = /\/api$/i.test(raw) ? raw : raw + '/api';
           const coll = process.env.POCKETBASE_COLLECTION;
           const files = fs.readFileSync('changed_app_jsons.txt', 'utf8').trim().split(/\s+/).filter(Boolean);
           const authRes = await request(base + '/admins/auth-with-password', {
@@ -85,7 +86,7 @@ jobs:
               password: process.env.POCKETBASE_ADMIN_PASSWORD
             })
           });
-          if (!authRes.ok) throw new Error('Auth failed: ' + authRes.body);
+          if (!authRes.ok) throw new Error('Auth failed (check POCKETBASE_URL; use base URL without /api): ' + authRes.body);
           const token = JSON.parse(authRes.body).token;
           const recordsPath = '/api/collections/' + encodeURIComponent(coll) + '/records';
           const recordsUrl = base.replace(/\/api$/, '') + recordsPath;
