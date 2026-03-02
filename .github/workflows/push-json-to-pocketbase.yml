@@ -75,26 +75,56 @@ jobs:
             });
           }
           const raw = process.env.POCKETBASE_URL.replace(/\/$/, '');
-          const base = /\/api$/i.test(raw) ? raw : raw + '/api';
+          const apiBase = /\/api$/i.test(raw) ? raw : raw + '/api';
           const coll = process.env.POCKETBASE_COLLECTION;
           const files = fs.readFileSync('changed_app_jsons.txt', 'utf8').trim().split(/\s+/).filter(Boolean);
-          const authRes = await request(base + '/admins/auth-with-password', {
+          const authBody = JSON.stringify({
+            identity: process.env.POCKETBASE_ADMIN_EMAIL,
+            password: process.env.POCKETBASE_ADMIN_PASSWORD
+          });
+          let authRes = await request(apiBase + '/admins/auth-with-password', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              identity: process.env.POCKETBASE_ADMIN_EMAIL,
-              password: process.env.POCKETBASE_ADMIN_PASSWORD
-            })
+            body: authBody
           });
-          if (!authRes.ok) throw new Error('Auth failed (check POCKETBASE_URL; use base URL without /api): ' + authRes.body);
+          if (!authRes.ok && authRes.statusCode === 404) {
+            authRes = await request(raw + '/admins/auth-with-password', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: authBody
+            });
+          }
+          if (!authRes.ok) throw new Error('Auth failed (check POCKETBASE_URL): ' + authRes.body);
           const token = JSON.parse(authRes.body).token;
-          const recordsPath = '/api/collections/' + encodeURIComponent(coll) + '/records';
-          const recordsUrl = base.replace(/\/api$/, '') + recordsPath;
+          const recordsUrl = apiBase + '/collections/' + encodeURIComponent(coll) + '/records';
           for (const file of files) {
             if (!fs.existsSync(file)) continue;
             const data = JSON.parse(fs.readFileSync(file, 'utf8'));
             if (!data.slug) { console.log('Skipping', file, '(no slug)'); continue; }
-            const payload = Object.assign({}, data, { is_dev: false });
+            var payload = {
+              name: data.name,
+              slug: data.slug,
+              script_created: data.date_created || data.script_created,
+              script_updated: data.date_created || data.script_updated,
+              updateable: data.updateable,
+              privileged: data.privileged,
+              port: data.interface_port != null ? data.interface_port : data.port,
+              documentation: data.documentation,
+              website: data.website,
+              logo: data.logo,
+              description: data.description,
+              config_path: data.config_path,
+              default_user: (data.default_credentials && data.default_credentials.username) || data.default_user,
+              default_passwd: (data.default_credentials && data.default_credentials.password) || data.default_passwd,
+              categories: data.categories,
+              install_methods: data.install_methods,
+              notes: data.notes,
+              type: data.type,
+              is_dev: false
+            };
+            if (data.version !== undefined) payload.version = data.version;
+            if (data.changelog !== undefined) payload.changelog = data.changelog;
+            if (data.screenshots !== undefined) payload.screenshots = data.screenshots;
             const filter = "(slug='" + data.slug + "')";
             const listRes = await request(recordsUrl + '?filter=' + encodeURIComponent(filter) + '&perPage=1', {
               headers: { 'Authorization': token }
