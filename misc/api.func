@@ -946,6 +946,11 @@ post_update_to_api() {
 
   local http_code=""
 
+  # Strip 'G' suffix from disk size (VMs set DISK_SIZE=32G)
+  local DISK_SIZE_API="${DISK_SIZE:-0}"
+  DISK_SIZE_API="${DISK_SIZE_API%G}"
+  [[ ! "$DISK_SIZE_API" =~ ^[0-9]+$ ]] && DISK_SIZE_API=0
+
   # ── Attempt 1: Full payload with complete error text (includes full log) ──
   local JSON_PAYLOAD
   JSON_PAYLOAD=$(
@@ -957,7 +962,7 @@ post_update_to_api() {
     "nsapp": "${NSAPP:-unknown}",
     "status": "${pb_status}",
     "ct_type": ${CT_TYPE:-1},
-    "disk_size": ${DISK_SIZE:-0},
+    "disk_size": ${DISK_SIZE_API},
     "core_count": ${CORE_COUNT:-0},
     "ram_size": ${RAM_SIZE:-0},
     "os_type": "${var_os:-}",
@@ -1000,7 +1005,7 @@ EOF
     "nsapp": "${NSAPP:-unknown}",
     "status": "${pb_status}",
     "ct_type": ${CT_TYPE:-1},
-    "disk_size": ${DISK_SIZE:-0},
+    "disk_size": ${DISK_SIZE_API},
     "core_count": ${CORE_COUNT:-0},
     "ram_size": ${RAM_SIZE:-0},
     "os_type": "${var_os:-}",
