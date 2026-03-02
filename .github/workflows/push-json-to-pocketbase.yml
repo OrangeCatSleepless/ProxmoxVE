@@ -78,23 +78,20 @@ jobs:
           const apiBase = /\/api$/i.test(raw) ? raw : raw + '/api';
           const coll = process.env.POCKETBASE_COLLECTION;
           const files = fs.readFileSync('changed_app_jsons.txt', 'utf8').trim().split(/\s+/).filter(Boolean);
+          const authUrl = apiBase + '/collections/users/auth-with-password';
+          console.log('Auth URL: ' + authUrl);
           const authBody = JSON.stringify({
             identity: process.env.POCKETBASE_ADMIN_EMAIL,
             password: process.env.POCKETBASE_ADMIN_PASSWORD
           });
-          let authRes = await request(apiBase + '/admins/auth-with-password', {
+          const authRes = await request(authUrl, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: authBody
           });
-          if (!authRes.ok && authRes.statusCode === 404) {
-            authRes = await request(raw + '/admins/auth-with-password', {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: authBody
-            });
+          if (!authRes.ok) {
+            throw new Error('Auth failed. Tried: ' + authUrl + ' - Verify POST to that URL with body {"identity":"...","password":"..."} works. Response: ' + authRes.body);
           }
-          if (!authRes.ok) throw new Error('Auth failed (check POCKETBASE_URL): ' + authRes.body);
           const token = JSON.parse(authRes.body).token;
           const recordsUrl = apiBase + '/collections/' + encodeURIComponent(coll) + '/records';
           for (const file of files) {
